@@ -9,8 +9,7 @@ function getContext(state, context) {
 
 export const store = new Vuex.Store({
   state: {
-    thisGame: '5 Dysfunctions',
-    appType: '5 Dysfunctions',
+    thisGame: 'Death Star Builder',
     session: null,
     userName: '',
     admin: false,
