@@ -9,6 +9,7 @@ const os = require('os')
 const prod = os.hostname() == 'agilesimulations' ? true : false
 const logFile = prod ? process.argv[4] : 'server.log'
 const port = prod ? process.env.VUE_APP_PORT : 3054
+const gamesCollection =  prod ? process.env.VUE_APP_GAMES_COLLECTION : 'deathStarBuilderGames'
 const appCollection =  prod ? process.env.VUE_APP_COLLECTION : 'deathStarBuilder'
 
 ON_DEATH(function(signal, err) {
@@ -78,9 +79,11 @@ MongoClient.connect(url, { useUnifiedTopology: true, maxIdleTimeMS: maxIdleTime 
   if (err) throw err
   db = client.db('db')
 
+  db.createCollection(gamesCollection, function(error, collection) {})
   db.createCollection(appCollection, function(error, collection) {})
 
-  db.apCollection = db.collection(appCollection)
+  db.gamesCollection = db.collection(gamesCollection)
+  db.appCollection = db.collection(appCollection)
 
   io.on('connection', (socket) => {
     const connection = socket.handshake.headers.host
@@ -100,55 +103,13 @@ MongoClient.connect(url, { useUnifiedTopology: true, maxIdleTimeMS: maxIdleTime 
       emit('updateConnections', {connections: connections, maxConnections: maxConnections})
     })
 
-    socket.on('sendCheckServer', () => { dbStore.checkServer(db, io, debugOn) })
+    socket.on('sendCheckSystem', () => { dbStore.checkSystem(db, io, debugOn) })
 
-    socket.on('sendCheckSystem', (data) => { dbStore.checkSystem(db, io, data, debugOn) })
+    socket.on('sendAddGame', (data) => { dbStore.addGame(db, io, data, debugOn) })
 
-    socket.on('sendClearQuestions', (data) => { dbStore.clearQuestions(db, io, data, debugOn) })
-
-    socket.on('sendLoadTeams', () => { dbStore.loadTeams(db, io, debugOn) })
-
-    socket.on('sendCreateAssessment', (data) => { dbStore.createAssessment(db, io, data, debugOn) })
-
-    socket.on('sendLoadAssessment', (data) => { dbStore.loadAssessment(db, io, data, debugOn) })
-
-    socket.on('sendSetAnswer', (data) => { dbStore.setAnswer(db, io, data, debugOn) })
-
-    socket.on('sendGetResults', (data) => { dbStore.getResults(db, io, data, debugOn) })
-
-    socket.on('sendRestart', () => { dbStore.restart(db, io, debugOn) })
+    socket.on('sendDeleteGame', (data) => { dbStore.deleteGame(db, io, data, debugOn) })
 
     // Facilitator
-
-    socket.on('sendUpdateServer', (data) => { dbStore.updateServer(db, io, data, debugOn) })
-
-    socket.on('sendAddTeam', (data) => { dbStore.addTeam(db, io, data, debugOn) })
-
-    socket.on('sendUpdateTeamName', (data) => { dbStore.updateTeamName(db, io, data, debugOn) })
-
-    socket.on('sendDeleteTeam', (data) => { dbStore.deleteTeam(db, io, data, debugOn) })
-
-    socket.on('sendAddMember', (data) => { dbStore.addMember(db, io, data, debugOn) })
-
-    socket.on('sendUpdateMemberName', (data) => { dbStore.updateMemberName(db, io, data, debugOn) })
-
-    socket.on('sendDeleteMember', (data) => { dbStore.deleteMember(db, io, data, debugOn) })
-
-    socket.on('sendAddQuestion', (data) => { dbStore.addQuestion(db, io, data, debugOn) })
-
-    socket.on('sendUpdateQuestion', (data) => { dbStore.updateQuestion(db, io, data, debugOn) })
-
-    socket.on('sendUpdateQuestionTitle', (data) => { data.field = 'title'; dbStore.updateQuestion(db, io, data, debugOn) })
-
-    socket.on('sendUpdateQuestionGood', (data) => { data.field = 'good'; dbStore.updateQuestion(db, io, data, debugOn) })
-
-    socket.on('sendUpdateQuestionBad', (data) => { data.field = 'bad'; dbStore.updateQuestion(db, io, data, debugOn) })
-
-    socket.on('sendUpdateQuestionQuestion', (data) => { data.field = 'question'; dbStore.updateQuestion(db, io, data, debugOn) })
-
-    socket.on('sendUpdateQuestionDysfunction', (data) => { data.field = 'dysfunction'; dbStore.updateQuestion(db, io, data, debugOn) })
-
-    socket.on('sendDeleteQuestion', (data) => { dbStore.deleteQuestion(db, io, data, debugOn) })
 
   })
 })

@@ -18,12 +18,8 @@
 <script>
 import bus from './socket.js'
 
-import io from 'socket.io-client'
-
 import ls from './lib/localStorage.js'
 import params from './lib/params.js'
-import appTypeFuns from './lib/appType.js'
-import session from './lib/session.js'
 
 import Header from './components/Header.vue'
 import ClearStorage from './components/ClearStorage.vue'
@@ -59,10 +55,7 @@ export default {
 
     this.$store.dispatch('localStorageStatus', ls.check())
 
-    //session.store(this.$store, bus, this.lsSuffix)
-
-    //bus.$emit('sendCheckSystem', {appType: appType})
-    // bus.$emit('sendCheckServer')
+    bus.$emit('sendCheckSystem')
 
     if (location.hostname == 'localhost' && params.isParam('host')) {
       this.$store.dispatch('updateAdmin', true)
@@ -75,6 +68,11 @@ export default {
     bus.$on('updateConnections', (data) => {
       this.$store.dispatch('updateConnectionError', null)
       this.$store.dispatch('updateConnections', data)
+    })
+
+    bus.$on('loadGames', (data) => {
+      console.log(data)
+      this.$store.dispatch('updateGames', data)
     })
   },
   methods: {

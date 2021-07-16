@@ -62,3 +62,19 @@ button { margin: 2px; }
 .btn-info:hover:disabled {
   color: #fff;
 }
+
+.btn {
+  padding: 0.25rem 0.6rem;
+}
+
+.btn-site-primary {
+  color: #fff;
+  background-color: #f4511e;
+  border-color: #f4511e;
+}
+
+.btn-site-primary:hover {
+  color: #f4511e;
+  background-color: #ffffff;
+  border-color: #f4511e;
+}

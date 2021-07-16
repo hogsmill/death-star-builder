@@ -16,8 +16,8 @@ done
 
 REPO="https://github.com/hogsmill/death-stat-builder.git"
 APPS=(
-  'death-star-builder,deathStarBuilder,3054,Death Star Builder'
-  'death-star-builder-dex,deathStarBuilderDex,3055,Death Star Builder Dex'
+  'death-star-builder,deathStarBuilderGames,deathStarBuilder,3054,Death Star Builder'
+  'death-star-builder-dex,deathStarBuilderGamesDex,deathStarBuilderDex,3055,Death Star Builder Dex'
 )
 
 for ((i = 0; i < ${#APPS[@]}; i++))
@@ -25,15 +25,16 @@ do
   REC="${APPS[$i]}"
 
   APP=`echo $REC | cut -d, -f1`
-  COLLECTION=`echo $REC | cut -d, -f2`
-  PORT=`echo $REC | cut -d, -f3`
-  APPNAME=`echo $REC | cut -d, -f4`
+  GAMESCOLLECTION=`echo $REC | cut -d, -f2`
+  COLLECTION=`echo $REC | cut -d, -f3`
+  PORT=`echo $REC | cut -d, -f4`
+  APPNAME=`echo $REC | cut -d, -f5`
 
   echo "------------------------------------------------"
   if [ -z "$APPNAME" ]; then
-    echo "Installing $APPTYPE:$APP ($COLLECTION, $PORT)"
+    echo "Installing $APPTYPE:$APP ($COLLECTION, $GAMESCOLLECTION, $PORT)"
   else
-    echo "Installing $APPTYPE:$APP ($COLLECTION, $PORT, $APPNAME)"
+    echo "Installing $APPTYPE:$APP ($COLLECTION, $GAMESCOLLECTION, $PORT, $APPNAME)"
   fi
   echo "------------------------------------------------"
 
@@ -43,6 +44,7 @@ do
   fi
   ENVFILE="$DIR/.env"
   echo "VUE_APP_PORT=$PORT" > $ENVFILE
+  echo "VUE_APP_GAMES_COLLECTION=$GAMESCOLLECTION" >> $ENVFILE
   echo "VUE_APP_COLLECTION=$COLLECTION" >> $ENVFILE
     if [ ! -z "$APPNAME" ]; then
     echo "VUE_APP_NAME=$APPNAME" >> $ENVFILE
