@@ -46,7 +46,7 @@ const events = [
 
 module.exports = {
 
-  newEvents: function() {
+  new: function() {
     return events
   }
 }

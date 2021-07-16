@@ -2,6 +2,7 @@
   <div class="container about">
     <h2>Facilitator View</h2>
     <Games />
+    <Roles />
     <Initiatives />
     <Events />
     <Backlog />
@@ -10,6 +11,7 @@
 
 <script>
 import Games from './facilitator/Games.vue'
+import Roles from './facilitator/Roles.vue'
 import Initiatives from './facilitator/Initiatives.vue'
 import Events from './facilitator/Events.vue'
 import Backlog from './facilitator/Backlog.vue'
@@ -17,6 +19,7 @@ import Backlog from './facilitator/Backlog.vue'
 export default {
   components: {
     Games,
+    Roles,
     Initiatives,
     Events,
     Backlog

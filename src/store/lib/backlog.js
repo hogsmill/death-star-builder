@@ -2920,7 +2920,7 @@ const backlog = [
 
 module.exports = {
 
-  newBacklog: function() {
+  new: function() {
     return backlog
   }
 }

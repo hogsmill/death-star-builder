@@ -88,7 +88,7 @@ const initiatives = [
 
 module.exports = {
 
-  newInitiatives: function() {
+  new: function() {
     return initiatives
   }
 }
