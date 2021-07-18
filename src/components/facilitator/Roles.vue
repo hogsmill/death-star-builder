@@ -24,6 +24,35 @@
         </select>
       </td>
     </tr>
+    <tr v-if="showRoles">
+      <td>
+        Roles
+      </td>
+      <td>
+        <select v-if="editingGame.id" id="editing-role-select" @change="setEditingRole()">
+          <option value="">
+            -- Select --
+          </option>
+          <option v-for="(role, index) in editingGame.roles" :key="index" :value="role.id" :selected="role.id == editingRole.id">
+            {{ role.role }}
+          </option>
+        </select>
+        <div v-if="editingRole.id">
+          <p>Capabilities</p>
+          <table class="capabilities-table">
+            <tr v-for="(capability, cindex) in editingGame.capabilities" :key="cindex">
+              <td>
+                <i v-if="editingRole.capabilities.indexOf(capability.id) > -1" class="fas fa-check" />
+                <i v-if="editingRole.capabilities.indexOf(capability.id) < 0" class="fas fa-times" />
+              </td>
+              <td>
+                {{ capability.capability }}
+              </td>
+            </tr>
+          </table>
+        </div>
+      </td>
+    </tr>
     <tr v-if="showRoles" class="header">
       <td>
         Roles
@@ -33,10 +62,7 @@
           <thead>
             <tr>
               <th>
-                Num
-              </th>
-              <th>
-                Type
+                Player
               </th>
               <th>
                 Name
@@ -48,57 +74,32 @@
                 Face
               </th>
               <th>
-                As
-              </th>
-              <th>
-                Can
-              </th>
-              <th>
                 Want
               </th>
               <th>
                 So
-              </th>
-              <th>
-                Logo
               </th>
             </tr>
           </thead>
           <tbody>
             <tr v-for="(role, index) in editingGame.roles" :key="index">
               <td>
-                {{ role.num }}
+                {{ role.player }}
               </td>
               <td>
-                {{ role.Type }}
+                {{ role.name }}
               </td>
               <td>
-                {{ role.Name }}
+                {{ role.realName }}
               </td>
               <td>
-                {{ role.RealName }}
-              </td>
-              <td>
-                {{ role.Face }}
-              </td>
-              <td>
-                {{ role.As }}
-              </td>
-              <td>
-                <ul>
-                  <li v-for="(ability, cindex) in role.can" :key="cindex">
-                    {{ ability }}
-                  </li>
-                </ul>
+                {{ role.face }}
               </td>
               <td>
                 {{ role.want }}
               </td>
               <td>
                 {{ role.so }}
-              </td>
-              <td>
-                {{ role.logo }}
               </td>
             </tr>
           </tbody>
@@ -117,6 +118,7 @@ export default {
   data() {
     return {
       showRoles: false,
+      editingRole: {},
       id: null
     }
   },
@@ -135,6 +137,13 @@ export default {
     setEditingGame() {
       const id = document.getElementById('editing-game-select').value
       this.$store.dispatch('updateEditingGame', id)
+    },
+    setEditingRole() {
+      const id = document.getElementById('editing-role-select').value
+      const role = this.editingGame.roles.find((r) => {
+        return r.id == id
+      })
+      this.editingRole = role ? role : {}
     }
   }
 }
@@ -153,6 +162,22 @@ export default {
 
       td {
         vertical-align: middle;
+      }
+    }
+
+    .capabilities-table {
+      .fas {
+        position: relative;
+        right: 0;
+        width: 16px;
+
+        &.fa-check {
+          color: green;
+        }
+
+        &.fa-times {
+          color: red;
+        }
       }
     }
   }

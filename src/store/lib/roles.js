@@ -1,190 +1,135 @@
 
+const capabilities = [
+  {
+    id: 1,
+    capability: 'Meet the Emperor'
+  },
+  {
+    id: 2,
+    capability: 'Meet other Gran Koenigs'
+  },
+  {
+    id: 3,
+    capability: 'Meet other Initiatives'
+  },
+  {
+    id: 4,
+    capability: 'Touch the planboard'
+  }
+]
+
 const roles = [
   {
-    num: 1,
-    Type: 'Gran Koenig',
-    Name: 'KooKaan',
-    RealName: 'XoXaan',
-    Face: 'xoxaan',
-    As: 'As a Gran Koenig',
-    can: [
-      'I can meet the Emperor',
-      'I can meet other Gran Koenigs'
-    ],
-    want: 'I want to maximize Defence',
-    so: 'so we will be ready if Rebellion will attack',
+    id: 1,
+    role: 'Emperor',
+    logo: 'EmpireEmblem.png',
+    setRoles: true
+  },
+  {
+    id: 2,
+    role: 'Gran Koenig',
+    capabilities: [1, 2],
+    logo: 'EmpireEmblem.png',
+    setRoles: true
+  },
+  {
+    id: 3,
+    role: 'Master of Shkrum',
+    capabilities: [3, 4],
     logo: 'EmpireEmblem.png'
   },
   {
-    num: 1,
-    Type: 'Gran Koenig',
-    Name: 'Muff Kartin',
-    RealName: 'Gran Moff Wilhuff Tarkin',
-    Face: 'tarkin',
-    As: 'As a Gran Koenig',
-    can: [
-      'I can meet the Emperor',
-      'I can meet other Gran Koenigs'
-    ],
-    want: 'I want to balance Defence and Supremacy',
-    so: 'so the station will grow organically',
+    id: 4,
+    role: 'Space Trooper',
+    capabilities: [],
     logo: 'EmpireEmblem.png'
   },
+]
+
+const fixedRoles = [
   {
-    num: 1,
-    Type: 'Gran Koenig',
-    Name: 'Lunimara',
-    RealName: 'Luminara xxxx',
-    Face: 'luminara',
-    As: 'As a Gran Koenig',
-    can: [
-      'I can meet the Emperor',
-      'I can meet other Gran Koenigs'
-    ],
-    want: 'I want to anticipate dependencies',
-    so: 'so in the following cycles we will be free to build',
-    logo: 'EmpireEmblem.png'
+    type: 1,
+    id: 1,
+    player: {},
+    name: 'The Emperor',
+    realName: 'The Emperor',
+    face: 'emporer',
+    want: 'Galactic Domination',
+    so: 'We dominate the Galaxy',
   },
   {
-    num: 1,
-    Type: 'Gran Koenig',
-    Name: 'Daalia Sitana',
-    RealName: 'Natasi daala',
-    Face: 'daalia',
-    As: 'As a Gran Koenig',
-    can: [
-      'I can meet the Emperor',
-      'I can meet other Gran Koenigs'
-    ],
-    want: 'I want to anticipate complexity',
-    so: 'so in the following cycles we will face less problem',
-    logo: 'EmpireEmblem.png'
+    type: 2,
+    id: 2,
+    player: {},
+    name: 'KooKaan',
+    realName: 'XoXaan',
+    face: 'xoxaan',
+    want: 'Maximize Defence',
+    so: 'We will be ready if Rebellion will attack',
   },
   {
-    num: 1,
-    Type: 'Gran Koenig',
-    Name: 'Lord Kardess',
-    RealName: 'Darth Vader',
-    Face: 'vader',
-    As: 'As a Gran Koenig',
-    can: [
-      'I can meet the Emperor',
-      'I can meet other Gran Koenigs'
-    ],
-    want: 'I want to maximize Supremacy',
-    so: 'so my Emperor will start terrifying the galaxy sooner',
-    logo: 'EmpireEmblem.png'
+    type: 2,
+    id: 3,
+    player: {},
+    name: 'Muff Kartin',
+    realName: 'Gran Moff Wilhuff Tarkin',
+    face: 'tarkin',
+    want: 'Balance Defence and Supremacy',
+    so: 'The station will grow organically',
   },
   {
-    num: 1,
-    Type: 'Gran Koenig',
-    Name: 'Selm Kamdet',
-    RealName: 'Galen Marek',
-    Face: 'galen',
-    As: 'As a Gran Koenig',
-    can: [
-      'I can meet the Emperor',
-      'I can meet other Gran Koenigs'
-    ],
-    want: 'I want to defer dependencies',
-    so: 'so we can start building without constraints',
-    logo: 'EmpireEmblem.png'
+    type: 2,
+    id: 4,
+    player: {},
+    name: 'Lunimara',
+    realName: 'Luminara xxxx',
+    face: 'luminara',
+    want: 'Anticipate Dependencies',
+    so: 'In the following cycles we will be free to build',
   },
   {
-    num: 1,
-    Type: 'Master of Shkrum',
-    Name: 'DS-0891',
-    RealName: 'DS-0891',
-    Face: 'master',
-    As: 'As a master of Shkrum',
-    can: [
-      'I can meet other Initiatives',
-      'I can touch the planboard'
-    ],
-    want: 'I want to help my Initiative',
-    so: 'so my Emperor can see how much work we have done',
-    logo: 'EmpireEmblem.png'
+    type: 2,
+    id: 5,
+    player: {},
+    name: 'Daalia Sitana',
+    realName: 'Natasi daala',
+    face: 'daalia',
+    want: 'Anticipate Complexity',
+    so: 'In the following cycles we will face fewer problems',
   },
   {
-    num: 1,
-    Type: 'Master of Shkrum',
-    Name: 'AD-1492',
-    RealName: 'AD-1492',
-    Face: 'master',
-    As: 'As a master of Shkrum',
-    can: [
-      'I can meet other Initiatives',
-      'I can touch the planboard'
-    ],
-    want: 'I want to help my Initiative',
-    so: 'so my Emperor can see how much work we have done',
-    logo: 'EmpireEmblem.png'
+    type: 2,
+    id: 6,
+    player: {},
+    name: 'Lord Kardess',
+    realName: 'Darth Vader',
+    face: 'vader',
+    want: 'Maximize Supremacy',
+    so: 'My Emperor will start terrifying the galaxy sooner',
   },
   {
-    num: 1,
-    Type: 'Master of Shkrum',
-    Name: 'CD-1966',
-    RealName: 'CD-1966',
-    Face: 'master',
-    As: 'As a master of Shkrum',
-    can: [
-      'I can meet other Initiatives',
-      'I can touch the planboard'
-    ],
-    want: 'I want to help my Initiative',
-    so: 'so my Emperor can see how much work we have done',
-    logo: 'EmpireEmblem.png'
-  },
-  {
-    num: 1,
-    Type: 'Master of Shkrum',
-    Name: 'MI-2010',
-    RealName: 'MI-2010',
-    Face: 'master',
-    As: 'As a master of Shkrum',
-    can: [
-      'I can meet other Initiatives',
-      'I can touch the planboard'
-    ],
-    want: 'I want to help my Initiative',
-    so: 'so my Emperor can see how much work we have done',
-    logo: 'EmpireEmblem.png'
-  },
-  {
-    num: 1,
-    Type: 'Master of Shkrum',
-    Name: 'FN-2187',
-    RealName: 'FN-2187',
-    Face: 'master',
-    As: 'As a master of Shkrum',
-    can: [
-      'I can meet other Initiatives',
-      'I can touch the planboard'
-    ],
-    want: 'I want to help my Initiative',
-    so: 'so my Emperor can see how much work we have done',
-    logo: 'EmpireEmblem.png'
-  },
-  {
-    num: 1,
-    Type: 'Master of Shkrum',
-    Name: 'WL-2641',
-    RealName: 'WL-2641',
-    Face: 'master',
-    As: 'As a master of Shkrum',
-    can: [
-      'I can meet other Initiatives',
-      'I can touch the planboard'
-    ],
-    want: 'I want to help my Initiative',
-    so: 'so my Emperor can see how much work we have done',
-    logo: 'EmpireEmblem.png'
+    type: 2,
+    id: 7,
+    player: {},
+    name: 'Selm Kamdet',
+    realName: 'Galen Marek',
+    face: 'galen',
+    want: 'Defer Dependencies',
+    so: 'We can start building without constraints',
   }
 ]
 
 module.exports = {
 
-  new: function() {
+  capabiities: function() {
+    return capabilities
+  },
+
+  roles: function() {
     return roles
+  },
+
+  fixedRoles: function() {
+    return fixedRoles
   }
 }

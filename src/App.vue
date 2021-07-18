@@ -10,7 +10,12 @@
     <div v-if="currentTab == 'game'" class="main">
       <h1>
         Death Star Builder
+        <span v-if="game.id">
+          ({{ game.name }})
+        </span>
       </h1>
+      <TitleString />
+      <SetGame />
     </div>
   </div>
 </template>
@@ -28,6 +33,9 @@ import ConnectionError from './components/error/ConnectionError.vue'
 
 import FacilitatorView from './components/FacilitatorView.vue'
 
+import SetGame from './components/SetGame.vue'
+import TitleString from './components/TitleString.vue'
+
 export default {
   name: 'App',
   components: {
@@ -35,7 +43,9 @@ export default {
     ClearStorage,
     WalkThroughView,
     ConnectionError,
-    FacilitatorView
+    FacilitatorView,
+    SetGame,
+    TitleString
   },
   computed: {
     admin() {
@@ -46,6 +56,18 @@ export default {
     },
     currentTab() {
       return this.$store.getters.getCurrentTab
+    },
+    game() {
+      return this.$store.getters.getGame
+    },
+    initiative() {
+      return this.$store.getters.getInitiative
+    },
+    myName() {
+      return this.$store.getters.getMyName
+    },
+    role() {
+      return this.$store.getters.getRole
     }
   },
   created() {
@@ -71,11 +93,27 @@ export default {
     })
 
     bus.$on('loadGames', (data) => {
-      console.log(data)
       this.$store.dispatch('updateGames', data)
+      const gameId = localStorage.getItem('game-' + this.lsSuffix)
+      this.$store.dispatch('updateGameId', gameId)
+      const initiativeId = localStorage.getItem('initiative-' + this.lsSuffix)
+      const myName = JSON.parse(localStorage.getItem('name-' + this.lsSuffix))
+      const role = localStorage.getItem('role-' + this.lsSuffix)
+      if (gameId && initiativeId) {
+        const data = {
+          gameId: gameId,
+          initiativeId: initiativeId,
+          myName: myName,
+          role: role
+        }
+        this.$store.dispatch('updateMyGame', data)
+      }
     })
   },
   methods: {
+    roleName(role) {
+      return role.name ? role.name : role.role
+    }
   }
 }
 </script>

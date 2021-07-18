@@ -1,7 +1,7 @@
 
 const initiatives = [
   {
-    num: 1,
+    id: 1,
     epic: 'Communication',
     code: 'C',
     description: 'To connect people and systems',
@@ -15,7 +15,7 @@ const initiatives = [
     logo: 'c-logo.png'
   },
   {
-    num: 1,
+    id: 2,
     epic: 'Defence',
     code: 'D',
     description: 'To defend from the external attacks',
@@ -29,7 +29,7 @@ const initiatives = [
     logo: 'D-logo.png'
   },
   {
-    num: 1,
+    id: 3,
     epic: 'Infrastructure',
     code: 'I',
     description: 'To make all systems working',
@@ -43,7 +43,7 @@ const initiatives = [
     logo: 'I-logo.png'
   },
   {
-    num: 1,
+    id: 4,
     epic: 'Living',
     code: 'L',
     description: 'To let  people operate in the station',
@@ -57,7 +57,7 @@ const initiatives = [
     logo: 'L-logo.png'
   },
   {
-    num: 1,
+    id: 5,
     epic: 'Supremacy',
     code: 'S',
     description: 'To demonstrate Empire\'s strength',
@@ -71,7 +71,7 @@ const initiatives = [
     logo: 'S-logo.png'
   },
   {
-    num: 1,
+    id: 6,
     epic: 'Transport',
     code: 'T',
     description: 'To move people and goods',

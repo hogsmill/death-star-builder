@@ -14,10 +14,13 @@ module.exports = {
       name: name,
       protected: protected
     }
-    game.roles = roleFuns.new()
+    game.capabilities = roleFuns.capabiities()
+    game.roles = roleFuns.roles()
+    game.fixedRoles = roleFuns.fixedRoles()
     game.initiatives = initiativeFuns.new()
     game.events = eventFuns.new()
     game.backlog = backlogFuns.new()
+    game.members = []
 
     return game
   }
