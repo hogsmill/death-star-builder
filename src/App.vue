@@ -16,6 +16,7 @@
       </h1>
       <TitleString />
       <SetGame />
+      <Board />
     </div>
   </div>
 </template>
@@ -35,6 +36,7 @@ import FacilitatorView from './components/FacilitatorView.vue'
 
 import SetGame from './components/SetGame.vue'
 import TitleString from './components/TitleString.vue'
+import Board from './components/Board.vue'
 
 export default {
   name: 'App',
@@ -45,7 +47,8 @@ export default {
     ConnectionError,
     FacilitatorView,
     SetGame,
-    TitleString
+    TitleString,
+    Board
   },
   computed: {
     admin() {
@@ -93,6 +96,7 @@ export default {
     })
 
     bus.$on('loadGames', (data) => {
+    console.log(data)
       this.$store.dispatch('updateGames', data)
       const gameId = localStorage.getItem('game-' + this.lsSuffix)
       this.$store.dispatch('updateGameId', gameId)
@@ -119,5 +123,7 @@ export default {
 </script>
 
 <style lang="scss">
-
+  #app {
+    min-height: 850px;
+  }
 </style>
