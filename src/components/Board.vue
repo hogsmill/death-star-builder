@@ -69,11 +69,6 @@ export default {
 </script>
 
 <style lang="scss">
-  .over-commit {
-    background-color: red;
-    color: #fff;
-  }
-
   .titles {
     width: 90%;
     margin: 0 auto;
@@ -82,6 +77,10 @@ export default {
     .title {
       display: inline-block;
       width: 14.2%;
+
+      &.over-commit {
+        color: red;
+      }
     }
   }
 
@@ -101,6 +100,10 @@ export default {
       display: inline-block;
       min-height: 800px;
       float: left;
+
+      &.over-commit {
+        background-color: red;
+      }
     }
   }
 </style>
