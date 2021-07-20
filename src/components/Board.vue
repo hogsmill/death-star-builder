@@ -1,5 +1,5 @@
 <template>
-  <div v-if="game.backlog">
+  <div v-if="initiative">
     <div class="titles">
       <div class="title">
         Backlog

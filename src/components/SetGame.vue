@@ -26,7 +26,7 @@
               <span v-if="gameFromParams()">{{ game.name }}</span>
               <select v-if="!gameFromParams()" id="game-name-select" class="form-control" @change="setGame()">
                 <option value=""> -- Select -- </option>
-                <option v-for="(g, index) in games" :key="index" :value="g.id" :selected="gameId == g.id">
+                <option v-for="(g, index) in games" :key="index" :value="g.id" :selected="gameId && gameId == g.id">
                   {{ g.name }}
                 </option>
               </select>

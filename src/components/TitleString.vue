@@ -14,7 +14,6 @@ export default {
       return this.$store.getters.getMyName
     },
     role() {
-      console.log('role', this.$store.getters.getRole)
       return this.$store.getters.getRole
     }
   },

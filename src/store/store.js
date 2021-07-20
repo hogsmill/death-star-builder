@@ -119,7 +119,7 @@ export const store = new Vuex.Store({
     updateGameId: (state, payload) => {
       state.gameId = payload
       const game = state.games.find((g) => {
-        return g.id = state.gameId
+        return g.id == state.gameId
       })
       state.game = game ? game : {}
       if (state.game.id) {
