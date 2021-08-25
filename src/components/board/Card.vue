@@ -1,9 +1,14 @@
 <template>
-  <div class="card">
+  <div class="card" :id="'card-' + card.id">
     <h5>
-      {{ card.title }}
+      {{ card.id}}: {{ card.title }}
       ({{ card.complexity }})
     </h5>
+    <div v-if="card.depInt1 || card.depInt3 || card.depInt3">
+      <span v-if="card.depInt1">{{ card.dep1 }}</span>
+      <span v-if="card.depInt2">{{ card.dep2 }}</span>
+      <span v-if="card.depInt3">{{ card.dep3 }}</span>
+    </div>
   </div>
 </template>
 

@@ -10,25 +10,31 @@
     </div>
     <div class="board">
       <draggable class="cycle-cards" :list="game.backlog[initiative.epic].backlog" group="backlog" @start="start" @end="end">
-        <Card v-for="(card, index) in game.backlog[initiative.epic].backlog" :key="index" :card="card" />
+        <Card v-for="(card, cindex0) in game.backlog[initiative.epic].backlog" :key="cindex0" :card="card" />
       </draggable>
       <draggable class="cycle-cards" :list="game.backlog[initiative.epic].cycle1" :class="{ 'over-commit' : complexity('cycle1') > 15 }" group="backlog" @start="start" @end="end">
-        <Card v-for="(card, index) in game.backlog[initiative.epic].cycle1" :key="index" :card="card" />
+        <Card v-for="(card, index1) in game.backlog[initiative.epic].cycle1" :key="index1" :card="card" />
+        <DependenciesInternal v-for="(card, dindex1) in game.backlog[initiative.epic].cycle1" :key="dindex1" :card="card" />
       </draggable>
       <draggable class="cycle-cards" :list="game.backlog[initiative.epic].cycle2" :class="{ 'over-commit' : complexity('cycle2') > 15 }" group="backlog" @start="start" @end="end">
-        <Card v-for="(card, index) in game.backlog[initiative.epic].cycle2" :key="index" :card="card" />
+        <Card v-for="(card, index2) in game.backlog[initiative.epic].cycle2" :key="index2" :card="card" />
+        <DependenciesInternal v-for="(card, dindex2) in game.backlog[initiative.epic].cycle2" :key="dindex2" :card="card" />
       </draggable>
       <draggable class="cycle-cards" :list="game.backlog[initiative.epic].cycle3" :class="{ 'over-commit' : complexity('cycle3') > 15 }" group="backlog" @start="start" @end="end">
-        <Card v-for="(card, index) in game.backlog[initiative.epic].cycle3" :key="index" :card="card" />
+        <Card v-for="(card, index3) in game.backlog[initiative.epic].cycle3" :key="index3" :card="card" />
+        <DependenciesInternal v-for="(card, dindex3) in game.backlog[initiative.epic].cycle3" :key="dindex3" :card="card" />
       </draggable>
       <draggable class="cycle-cards" :list="game.backlog[initiative.epic].cycle4" :class="{ 'over-commit' : complexity('cycle4') > 15 }" group="backlog" @start="start" @end="end">
-        <Card v-for="(card, index) in game.backlog[initiative.epic].cycle4" :key="index" :card="card" />
+        <Card v-for="(card, index4) in game.backlog[initiative.epic].cycle4" :key="index4" :card="card" />
+        <DependenciesInternal v-for="(card, dindex4) in game.backlog[initiative.epic].cycle4" :key="dindex4" :card="card" />
       </draggable>
       <draggable class="cycle-cards" :list="game.backlog[initiative.epic].cycle5" :class="{ 'over-commit' : complexity('cycle5') > 15 }" group="backlog" @start="start" @end="end">
-        <Card v-for="(card, index) in game.backlog[initiative.epic].cycle5" :key="index" :card="card" />
+        <Card v-for="(card, index5) in game.backlog[initiative.epic].cycle5" :key="index5" :card="card" />
+        <DependenciesInternal v-for="(card, dindex5) in game.backlog[initiative.epic].cycle5" :key="dindex5" :card="card" />
       </draggable>
       <draggable class="cycle-cards" :list="game.backlog[initiative.epic].cycle6" :class="{ 'over-commit' : complexity('cycle6') > 15 }" group="backlog" @start="start" @end="end">
-        <Card v-for="(card, index) in game.backlog[initiative.epic].cycle6" :key="index" :card="card" />
+        <Card v-for="(card, index6) in game.backlog[initiative.epic].cycle6" :key="index6" :card="card" />
+        <DependenciesInternal v-for="(card, dindex6) in game.backlog[initiative.epic].cycle6" :key="dindex6" :card="card" />
       </draggable>
     </div>
   </div>
@@ -38,11 +44,13 @@
 import draggable from 'vuedraggable'
 
 import Card from './board/Card.vue'
+import DependenciesInternal from './board/DependenciesInternal.vue'
 
 export default {
   components: {
     draggable,
-    Card
+    Card,
+    DependenciesInternal
   },
   computed: {
     initiative() {
@@ -60,9 +68,11 @@ export default {
       }
       return n
     },
-    start(e) {
+    start() {
+
     },
-    end(e) {
+    end() {
+      console.log('update db here')
     }
   }
 }
